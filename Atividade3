@@ -1,0 +1,253 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    // Atividade 01 – Contador Personalizado
+    static void ContarNumeros()
+    {
+        Console.Write("Digite o número inicial: ");
+        int numInicial = int.Parse(Console.ReadLine());
+        Console.Write("Digite o número final: ");
+        int numFinal = int.Parse(Console.ReadLine());
+
+        if (numInicial <= numFinal)
+        {
+            // Contagem crescente
+            for (int i = numInicial; i <= numFinal; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        else
+        {
+            // Contagem decrescente
+            for (int i = numInicial; i >= numFinal; i--)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+        // Desafio extra: Mostrar apenas números pares
+        Console.WriteLine("\nNúmeros pares entre os dois valores:");
+        if (numInicial <= numFinal)
+        {
+            for (int i = numInicial; i <= numFinal; i++)
+            {
+                if (i % 2 == 0)
+                    Console.WriteLine(i);
+            }
+        }
+        else
+        {
+            for (int i = numInicial; i >= numFinal; i--)
+            {
+                if (i % 2 == 0)
+                    Console.WriteLine(i);
+            }
+        }
+    }
+
+    // Atividade 02 – Calculadora Simples
+    static void Calculadora()
+    {
+        while (true)
+        {
+            Console.WriteLine("\nEscolha a operação:");
+            Console.WriteLine("1 - Soma");
+            Console.WriteLine("2 - Subtração");
+            Console.WriteLine("3 - Multiplicação");
+            Console.WriteLine("4 - Divisão");
+            Console.WriteLine("5 - Sair");
+            string escolha = Console.ReadLine();
+
+            if (escolha == "5")
+            {
+                Console.WriteLine("Saindo da calculadora...");
+                break;
+            }
+
+            try
+            {
+                Console.Write("Digite o primeiro número: ");
+                double num1 = double.Parse(Console.ReadLine());
+                Console.Write("Digite o segundo número: ");
+                double num2 = double.Parse(Console.ReadLine());
+
+                if (escolha == "1")
+                {
+                    Console.WriteLine($"Resultado: {num1 + num2}");
+                }
+                else if (escolha == "2")
+                {
+                    Console.WriteLine($"Resultado: {num1 - num2}");
+                }
+                else if (escolha == "3")
+                {
+                    Console.WriteLine($"Resultado: {num1 * num2}");
+                }
+                else if (escolha == "4")
+                {
+                    if (num2 == 0)
+                    {
+                        Console.WriteLine("Erro: Não é possível dividir por zero!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Resultado: {num1 / num2}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Opção inválida!");
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Erro: Entrada inválida! Por favor, insira números válidos.");
+            }
+        }
+    }
+
+    // Atividade 03 – Lista de Nomes
+    static void ListaDeNomes()
+    {
+        List<string> nomes = new List<string>();
+
+        while (true)
+        {
+            Console.Write("Digite um nome (ou 'sair' para finalizar): ");
+            string nome = Console.ReadLine();
+            if (nome.ToLower() == "sair")
+            {
+                break;
+            }
+            nomes.Add(nome);
+        }
+
+        Console.WriteLine("\nLista de nomes cadastrados:");
+        foreach (var nome in nomes)
+        {
+            Console.WriteLine(nome);
+        }
+
+        // Desafio extra: quantos nomes foram cadastrados
+        Console.WriteLine($"\nQuantidade de nomes cadastrados: {nomes.Count}");
+
+        // Exibir os nomes em ordem alfabética
+        nomes.Sort();
+        Console.WriteLine("\nNomes em ordem alfabética:");
+        foreach (var nome in nomes)
+        {
+            Console.WriteLine(nome);
+        }
+    }
+
+    // Atividade 04 – Funções no Dia a Dia
+    static void ExibirMenu()
+    {
+        Console.WriteLine("\nEscolha uma opção:");
+        Console.WriteLine("1 - Exibir saudação");
+        Console.WriteLine("2 - Somar dois números");
+        Console.WriteLine("3 - Verificar se um número é par ou ímpar");
+        Console.WriteLine("4 - Sair");
+    }
+
+    static void Saudacao(string nome)
+    {
+        Console.WriteLine($"Olá, {nome}! Seja bem-vindo ao programa.");
+    }
+
+    static int Somar(int a, int b)
+    {
+        return a + b;
+    }
+
+    static void VerificarParOuImpar(int numero)
+    {
+        if (numero % 2 == 0)
+        {
+            Console.WriteLine($"{numero} é um número par.");
+        }
+        else
+        {
+            Console.WriteLine($"{numero} é um número ímpar.");
+        }
+    }
+
+    // Função principal para organizar o fluxo do programa
+    static void Main()
+    {
+        while (true)
+        {
+            Console.WriteLine("\nEscolha uma atividade:");
+            Console.WriteLine("1 - Contador Personalizado");
+            Console.WriteLine("2 - Calculadora Simples");
+            Console.WriteLine("3 - Lista de Nomes");
+            Console.WriteLine("4 - Funções no Dia a Dia");
+            Console.WriteLine("5 - Sair");
+            string opcao = Console.ReadLine();
+
+            if (opcao == "1")
+            {
+                ContarNumeros();
+            }
+            else if (opcao == "2")
+            {
+                Calculadora();
+            }
+            else if (opcao == "3")
+            {
+                ListaDeNomes();
+            }
+            else if (opcao == "4")
+            {
+                while (true)
+                {
+                    ExibirMenu();
+                    string opcaoFuncao = Console.ReadLine();
+
+                    if (opcaoFuncao == "1")
+                    {
+                        Console.Write("Digite seu nome: ");
+                        string nome = Console.ReadLine();
+                        Saudacao(nome);
+                    }
+                    else if (opcaoFuncao == "2")
+                    {
+                        Console.Write("Digite o primeiro número: ");
+                        int num1 = int.Parse(Console.ReadLine());
+                        Console.Write("Digite o segundo número: ");
+                        int num2 = int.Parse(Console.ReadLine());
+                        int resultado = Somar(num1, num2);
+                        Console.WriteLine($"A soma dos dois números é: {resultado}");
+                    }
+                    else if (opcaoFuncao == "3")
+                    {
+                        Console.Write("Digite um número para verificar: ");
+                        int numero = int.Parse(Console.ReadLine());
+                        VerificarParOuImpar(numero);
+                    }
+                    else if (opcaoFuncao == "4")
+                    {
+                        Console.WriteLine("Saindo das funções do dia a dia...");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opção inválida! Tente novamente.");
+                    }
+                }
+            }
+            else if (opcao == "5")
+            {
+                Console.WriteLine("Saindo do programa...");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida! Tente novamente.");
+            }
+        }
+    }
+}
