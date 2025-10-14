@@ -1,0 +1,117 @@
+using System;
+
+namespace CalculadoraApp
+{
+    // Classe responsável pelas operações matemáticas
+    class Calculadora
+    {
+        // Métodos de operação
+        public double Somar(double a, double b) => a + b;
+        public double Subtrair(double a, double b) => a - b;
+        public double Multiplicar(double a, double b) => a * b;
+
+        public double Dividir(double a, double b)
+        {
+            if (b == 0)
+                throw new DivideByZeroException("Não é possível dividir por zero!");
+            return a / b;
+        }
+
+        public double Potenciar(double a, double b) => Math.Pow(a, b);
+    }
+
+    // Classe principal com a execução do programa
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Calculadora calc = new Calculadora(); // Instanciando a classe Calculadora
+
+            bool continuar = true;
+
+            // Laço de repetição para continuar realizando operações
+            while (continuar)
+            {
+                Console.Clear();
+                Console.WriteLine("Calculadora - Escolha uma operação:");
+                Console.WriteLine("1. Soma");
+                Console.WriteLine("2. Subtração");
+                Console.WriteLine("3. Multiplicação");
+                Console.WriteLine("4. Divisão");
+                Console.WriteLine("5. Potenciação");
+                Console.WriteLine("6. Sair");
+
+                Console.Write("\nEscolha uma opção (1-6): ");
+                int opcao;
+
+                // Tratamento de exceção para entrada inválida
+                try
+                {
+                    opcao = int.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Opção inválida! Por favor, insira um número de 1 a 6.");
+                    continue;
+                }
+
+                // Execução da operação selecionada pelo usuário
+                switch (opcao)
+                {
+                    case 1:
+                        RealizarOperacao(calc.Somar);
+                        break;
+                    case 2:
+                        RealizarOperacao(calc.Subtrair);
+                        break;
+                    case 3:
+                        RealizarOperacao(calc.Multiplicar);
+                        break;
+                    case 4:
+                        RealizarOperacao(calc.Dividir);
+                        break;
+                    case 5:
+                        RealizarOperacao(calc.Potenciar);
+                        break;
+                    case 6:
+                        continuar = false;
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida! Tente novamente.");
+                        break;
+                }
+
+                // Pergunta se o usuário deseja continuar
+                if (continuar)
+                {
+                    Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        // Método que executa a operação e trata erros
+        static void RealizarOperacao(Func<double, double, double> operacao)
+        {
+            try
+            {
+                Console.Write("Digite o primeiro número: ");
+                double num1 = double.Parse(Console.ReadLine());
+
+                Console.Write("Digite o segundo número: ");
+                double num2 = double.Parse(Console.ReadLine());
+
+                double resultado = operacao(num1, num2);
+                Console.WriteLine($"Resultado: {resultado}\n");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Entrada inválida! Por favor, insira números válidos.");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Erro! Divisão por zero não é permitida.");
+            }
+        }
+    }
+}
